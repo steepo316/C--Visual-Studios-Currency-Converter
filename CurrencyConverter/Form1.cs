@@ -9,47 +9,44 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Text.RegularExpressions;
+using System.Text.RegularExpressions; //Regex
 
 namespace CurrencyConverter
 {
-
-
-
     public partial class Form1 : Form
     {
-        double rounded;
-        double finalResult;
-        string finalOutput;
-        
-        class rates
+        // Declaring global variables
+        decimal finalResult; // The final sum.
+        string finalOutput; // The final output which will be displayed to the user. Includes the finalResult variable.
+
+        class getRates
         {
 
-            public double findRates(string convertFrom, string convertTo)
+            public decimal findRates(string convertFrom, string convertTo)
             {
-                const string get = "https://free.currconv.com/api/v7/convert?q={0}_{1}&compact=ultra&apiKey=d588da9f65ddb54e67c3";
+                const string get = "https://free.currconv.com/api/v7/convert?q={0}_{1}&compact=ultra&apiKey=d588da9f65ddb54e67c3"; // Pass the currencies into the URL
                 Console.WriteLine($"DEBUG: Converting {convertFrom} into {convertTo}");
-                string url = String.Format(get, convertTo, convertFrom);
+                string url = String.Format(get, convertTo, convertFrom); // Inserting values into get variable.
                 Console.WriteLine($"DEBUG: Using URL {url}");
-                string response = new WebClient().DownloadString(url);
+                string response = new WebClient().DownloadString(url); // Extracting the data.
                 Console.WriteLine($"DEBUG: Response: { response}");
-                //var remove = new string[] { "USD_EUR", "EUR_USD", "GBP_USD", "USD_GBP", "GBP_EUR", "EUR_GBP", ":", "{", "}", "\"\"" };
 
-                //  foreach (var c in remove)
-                // {
-                //     response = response.Replace(c.ToString(), String.Empty);
-                //  }
-
-                response = Regex.Match(response, @"[0-9]+(\.[0-9]+)?").Value;
-
-                Console.WriteLine($"DEBUG: Extracted Conversion Rate {response}");
-                double final_response = double.Parse(response, System.Globalization.CultureInfo.InvariantCulture);
-                return final_response;
+                response = Regex.Match(response, @"[0-9]+(\.[0-9]+)?").Value; // Only select decimals within the extracted value.
+                Console.WriteLine($"DEBUG: Extracted Conversion Rate: {response}");
+                //double final_response = double.Parse(response, System.Globalization.CultureInfo.InvariantCulture);
+                decimal final_response = decimal.Parse(response); // Parse from string into decimal.
+                return final_response; // Return to calling method.
 
             }
-
         }
-
+        class calculations
+        {
+            public static decimal performRounding(decimal input, int decimalPlaces) // Expect 2 values to be passed into method.
+            {
+                decimal roundingCalculation = Math.Round(input, decimalPlaces); // Round a value to a given number of decimal places.
+                return roundingCalculation; // Return to calling method.
+            }
+        }
 
         public Form1()
         {
@@ -58,15 +55,6 @@ namespace CurrencyConverter
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
-            var currencies = new string[] {"AED", "AFN", "ALL", "AMD", "ANG", "AOA", "ARS", "AUD", "AWG", "AZN", "BAM", "BBD", "BDT", "BGN", "BHD", "BIF", "BMD", "BND", "BOB", "BOV", "BRL", "BSD", "BTN", "BWP", "BYN", "BZD", "CAD", "CDF", "CHE", "CHF", "CHW", "CLF", "CLP", "CNY", "COP", "COU", "CRC", "CUC", "CUP", "CVE", "CZK", "DJF", "DKK", "DOP", "DZD", "EGP", "ERN", "ETB", "EUR", "FJD", "FKP", "GBP", "GEL", "GHS", "GIP", "GMD", "GNF", "GTQ", "GYD", "HKD", "HNL", "HRK", "HTG", "HUF", "IDR", "ILS", "INR", "IQD", "IRR", "ISK", "JMD", "JOD", "JPY", "KES", "KGS", "KHR", "KMF", "KPW", "KRW", "KWD", "KYD", "KZT", "LAK", "LBP", "LKR", "LRD", "LSL", "LYD", "MAD", "MDL", "MGA", "MKD", "MMK", "MNT", "MOP", "MRU", "MUR", "MVR", "MWK", "MXN", "MXV", "MYR", "MZN", "NAD", "NGN", "NIO", "NOK", "NPR", "NZD", "OMR", "PAB", "PEN", "PGK", "PHP", "PKR", "PLN", "PYG", "QAR", "RON", "RSD", "RUB", "RWF", "SAR", "SBD", "SCR", "SDG", "SEK", "SGD", "SHP", "SLL", "SOS", "SRD", "SSP", "STN", "SVC", "SYP", "SZL", "THB", "TJS", "TMT", "TND", "TOP", "TRY", "TTD", "TWD", "TZS", "UAH", "UGX", "USD", "USN", "UYI", "UYU", "UYW", "UZS", "VES", "VND", "VUV", "WST", "XAF", "XCD", "XDR", "XOF", "XPF", "XSU", "XUA", "YER", "ZAR", "ZMW", "ZWL" };
-            foreach (var x in currencies) {
-                currencyFromBox.Items.Add(x);
-                currencyToBox.Items.Add(x);
-            
-            }
-
-
         }
 
         private void currencyBoxTo_SelectedIndexChanged(object sender, EventArgs e)
@@ -76,11 +64,12 @@ namespace CurrencyConverter
 
         private void overlay_Click(object sender, EventArgs e)
         {
-            overlay.Visible = false;
+            overlay.Visible = false; // Hide the overlay / menu.
         }
 
         private void closeButton_Click(object sender, EventArgs e)
         {
+            // Resetting all values to their default state.
             overlay.Visible = true;
             output.Text = "";
             convertText.Text = "";
@@ -96,64 +85,51 @@ namespace CurrencyConverter
 
         }
 
-        public void convertCurrencies (string currencyFrom, string currencyTo)
+        public void convertCurrencies(string currencyFrom, string currencyTo)
         {
-            rates getRates = new rates();
-            double conversionRate = getRates.findRates(currencyFrom, currencyTo);
-            Console.WriteLine($"DEBUG: Received conversion rate from class: {conversionRate}");
-            finalResult = Double.Parse(convertText.Text) * conversionRate;
-            finalOutput = $"{convertText.Text} {currencyTo} converted into {currencyFrom} equals {finalResult}";
-            output.Text = finalOutput;
-            roundUp.Visible = true;
-            
-
-
-
-        }
-
-        public static double performRounding(double input, int decimalPlaces)
-        {
-            double roundingCalculation = Math.Pow(10, Convert.ToDouble(decimalPlaces));
-            return Math.Ceiling(input * roundingCalculation) / roundingCalculation;
+            getRates getRates = new getRates(); // Create a constructor.
+            decimal conversionRate = getRates.findRates(currencyFrom, currencyTo); // Call the method using the getRated consutuctor, passing 2 variales.
+            Console.WriteLine($"DEBUG: Received conversion rate from findRates class: {conversionRate}");
+            finalResult = decimal.Parse(convertText.Text) * conversionRate; // Convert user input into decimal.
+            finalOutput = ($"{convertText.Text} {currencyTo} converted into {currencyFrom} equals {finalResult}"); // Final output.
+            Console.WriteLine($"DEBUG: Performing calculation: {convertText.Text} * {conversionRate}. Final sum = {finalOutput}");
+            output.Text = finalOutput; // Display the final result.
+            roundUp.Visible = true; // Display the round up button.
         }
 
         private void roundUp_Click(object sender, EventArgs e)
         {
-            rounded = performRounding(finalResult, 2);
-            output.Text = $"The converted amount rounded up equals {rounded}";
-            roundUp.Visible = false;
-            goBack.Visible = true;
-
+            calculations doCalculations = new calculations(); // Create a constructor.
+            decimal rounded = calculations.performRounding(finalResult, 2); // Defining a variable. Setting its value by calling method and expecting a returned value.
+            Console.WriteLine($"DEBUG: Rounding Up to {rounded}");
+            output.Text = ($"The converted amount rounded up equals {rounded}"); // Displaying the final rounded result.
+            roundUp.Visible = false; // Hide round up button.
+            goBack.Visible = true; // Display go back button to revert rounding changes.
         }
 
         private void convertButton_Click(object sender, EventArgs e)
         {
-
-            if (currencyToBox.Text == currencyFromBox.Text)
+            if (currencyToBox.Text == currencyFromBox.Text) // If the user tries to convert 2 currencies that are the same do:
             {
-
-                output.Text = "Please select two different currencies.";
-
+                output.Text = "Please select two different currencies."; // Inform the user their input is invalid.
             }
-            else
+            else // Otherwise, do:
             {
-                double checkInt;
-                bool isNumerical = Double.TryParse(convertText.Text, out checkInt);
-                if (isNumerical)
+                decimal checkInput; // Validate the users input.
+                bool isNumerical = decimal.TryParse(convertText.Text, out checkInput); // Is the users input a valid decimal?
+                if (isNumerical) // If yes do:
                 {
-                    goBack.Visible = false;
+                    goBack.Visible = false; // Allow the user to round their sum bu hiding the go back button and displaying the round button.
+                                            // The go back button allows the user to revert to their original sum after it has been rounded.
                     roundUp.Visible = true;
-                    Console.WriteLine("DEBUG: Input is Numerical");
-                    convertCurrencies(currencyToBox.Text, currencyFromBox.Text);
-
+                    Console.WriteLine("DEBUG: Input is Numerical and Valid");
+                    convertCurrencies(currencyToBox.Text, currencyFromBox.Text); // Call method, passing the users currency selections into it.
                 }
-                else {
-                    output.Text = "Your input is not numerical.";
-                    Console.WriteLine("DEBUG: Input is Not numberical");
+                else // If not, do:
+                {
+                    output.Text = "Your input is not numerical."; // Inform the user their input is invalid.
+                    Console.WriteLine("DEBUG: Input is Not numberical and Invalid");
                 }
-
-
-
             }
         }
 
@@ -169,9 +145,9 @@ namespace CurrencyConverter
 
         private void goBack_Click(object sender, EventArgs e)
         {
-            output.Text = finalOutput;
-            goBack.Visible = false;
-            roundUp.Visible = true;
+            output.Text = finalOutput; // Display the previous unrounded sum.
+            goBack.Visible = false; // Hide this buttton.
+            roundUp.Visible = true; // Show round up button.
         }
 
         private void label2_Click(object sender, EventArgs e)

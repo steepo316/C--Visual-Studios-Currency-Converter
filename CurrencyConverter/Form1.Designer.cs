@@ -47,6 +47,7 @@ namespace CurrencyConverter
             this.convertToLabel = new System.Windows.Forms.Label();
             this.title = new System.Windows.Forms.Label();
             this.resultLabel = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // convertButton
@@ -56,15 +57,188 @@ namespace CurrencyConverter
             this.convertButton.Size = new System.Drawing.Size(78, 55);
             this.convertButton.TabIndex = 0;
             this.convertButton.Text = "Convert";
+            this.toolTip1.SetToolTip(this.convertButton, "Click Here to convert your sum!\r\nEnsure that all 3 entry fields above are filled " +
+        "in first.");
             this.convertButton.UseVisualStyleBackColor = true;
             this.convertButton.Click += new System.EventHandler(this.convertButton_Click);
             // 
             // currencyFromBox
             // 
             this.currencyFromBox.FormattingEnabled = true;
+            this.currencyFromBox.Items.AddRange(new object[] {
+            "AED",
+            "AFN",
+            "ALL",
+            "AMD",
+            "ANG",
+            "AOA",
+            "ARS",
+            "AUD",
+            "AWG",
+            "AZN",
+            "BAM",
+            "BBD",
+            "BDT",
+            "BGN",
+            "BHD",
+            "BIF",
+            "BMD",
+            "BND",
+            "BOB",
+            "BOV",
+            "BRL",
+            "BSD",
+            "BTN",
+            "BWP",
+            "BYN",
+            "BZD",
+            "CAD",
+            "CDF",
+            "CHE",
+            "CHF",
+            "CHW",
+            "CLF",
+            "CLP",
+            "CNY",
+            "COP",
+            "COU",
+            "CRC",
+            "CUC",
+            "CUP",
+            "CVE",
+            "CZK",
+            "DJF",
+            "DKK",
+            "DOP",
+            "DZD",
+            "EGP",
+            "ERN",
+            "ETB",
+            "EUR",
+            "FJD",
+            "FKP",
+            "GBP",
+            "GEL",
+            "GHS",
+            "GIP",
+            "GMD",
+            "GNF",
+            "GTQ",
+            "GYD",
+            "HKD",
+            "HNL",
+            "HRK",
+            "HTG",
+            "HUF",
+            "IDR",
+            "ILS",
+            "INR",
+            "IQD",
+            "IRR",
+            "ISK",
+            "JMD",
+            "JOD",
+            "JPY",
+            "KES",
+            "KGS",
+            "KHR",
+            "KMF",
+            "KPW",
+            "KRW",
+            "KWD",
+            "KYD",
+            "KZT",
+            "LAK",
+            "LBP",
+            "LKR",
+            "LRD",
+            "LSL",
+            "LYD",
+            "MAD",
+            "MDL",
+            "MGA",
+            "MKD",
+            "MMK",
+            "MNT",
+            "MOP",
+            "MRU",
+            "MUR",
+            "MVR",
+            "MWK",
+            "MXN",
+            "MXV",
+            "MYR",
+            "MZN",
+            "NAD",
+            "NGN",
+            "NIO",
+            "NOK",
+            "NPR",
+            "NZD",
+            "OMR",
+            "PAB",
+            "PEN",
+            "PGK",
+            "PHP",
+            "PKR",
+            "PLN",
+            "PYG",
+            "QAR",
+            "RON",
+            "RSD",
+            "RUB",
+            "RWF",
+            "SAR",
+            "SBD",
+            "SCR",
+            "SDG",
+            "SEK",
+            "SGD",
+            "SHP",
+            "SLL",
+            "SOS",
+            "SRD",
+            "SSP",
+            "STN",
+            "SVC",
+            "SYP",
+            "SZL",
+            "THB",
+            "TJS",
+            "TMT",
+            "TND",
+            "TOP",
+            "TRY",
+            "TTD",
+            "TWD",
+            "TZS",
+            "UAH",
+            "UGX",
+            "USD",
+            "USN",
+            "UYI",
+            "UYU",
+            "UYW",
+            "UZS",
+            "VES",
+            "VND",
+            "VUV",
+            "WST",
+            "XAF",
+            "XCD",
+            "XDR",
+            "XOF",
+            "XPF",
+            "XSU",
+            "XUA",
+            "YER",
+            "ZAR",
+            "ZMW",
+            "ZWL"});
             this.currencyFromBox.Location = new System.Drawing.Point(314, 121);
             this.currencyFromBox.Name = "currencyFromBox";
             this.currencyFromBox.Size = new System.Drawing.Size(133, 21);
+            this.currencyFromBox.Sorted = true;
             this.currencyFromBox.TabIndex = 3;
             // 
             // convertText
@@ -78,7 +252,7 @@ namespace CurrencyConverter
             // 
             // output
             // 
-            this.output.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.output.BackColor = System.Drawing.Color.LightSalmon;
             this.output.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.output.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.output.Location = new System.Drawing.Point(259, 176);
@@ -91,9 +265,180 @@ namespace CurrencyConverter
             // currencyToBox
             // 
             this.currencyToBox.FormattingEnabled = true;
+            this.currencyToBox.Items.AddRange(new object[] {
+            "AED",
+            "AFN",
+            "ALL",
+            "AMD",
+            "ANG",
+            "AOA",
+            "ARS",
+            "AUD",
+            "AWG",
+            "AZN",
+            "BAM",
+            "BBD",
+            "BDT",
+            "BGN",
+            "BHD",
+            "BIF",
+            "BMD",
+            "BND",
+            "BOB",
+            "BOV",
+            "BRL",
+            "BSD",
+            "BTN",
+            "BWP",
+            "BYN",
+            "BZD",
+            "CAD",
+            "CDF",
+            "CHE",
+            "CHF",
+            "CHW",
+            "CLF",
+            "CLP",
+            "CNY",
+            "COP",
+            "COU",
+            "CRC",
+            "CUC",
+            "CUP",
+            "CVE",
+            "CZK",
+            "DJF",
+            "DKK",
+            "DOP",
+            "DZD",
+            "EGP",
+            "ERN",
+            "ETB",
+            "EUR",
+            "FJD",
+            "FKP",
+            "GBP",
+            "GEL",
+            "GHS",
+            "GIP",
+            "GMD",
+            "GNF",
+            "GTQ",
+            "GYD",
+            "HKD",
+            "HNL",
+            "HRK",
+            "HTG",
+            "HUF",
+            "IDR",
+            "ILS",
+            "INR",
+            "IQD",
+            "IRR",
+            "ISK",
+            "JMD",
+            "JOD",
+            "JPY",
+            "KES",
+            "KGS",
+            "KHR",
+            "KMF",
+            "KPW",
+            "KRW",
+            "KWD",
+            "KYD",
+            "KZT",
+            "LAK",
+            "LBP",
+            "LKR",
+            "LRD",
+            "LSL",
+            "LYD",
+            "MAD",
+            "MDL",
+            "MGA",
+            "MKD",
+            "MMK",
+            "MNT",
+            "MOP",
+            "MRU",
+            "MUR",
+            "MVR",
+            "MWK",
+            "MXN",
+            "MXV",
+            "MYR",
+            "MZN",
+            "NAD",
+            "NGN",
+            "NIO",
+            "NOK",
+            "NPR",
+            "NZD",
+            "OMR",
+            "PAB",
+            "PEN",
+            "PGK",
+            "PHP",
+            "PKR",
+            "PLN",
+            "PYG",
+            "QAR",
+            "RON",
+            "RSD",
+            "RUB",
+            "RWF",
+            "SAR",
+            "SBD",
+            "SCR",
+            "SDG",
+            "SEK",
+            "SGD",
+            "SHP",
+            "SLL",
+            "SOS",
+            "SRD",
+            "SSP",
+            "STN",
+            "SVC",
+            "SYP",
+            "SZL",
+            "THB",
+            "TJS",
+            "TMT",
+            "TND",
+            "TOP",
+            "TRY",
+            "TTD",
+            "TWD",
+            "TZS",
+            "UAH",
+            "UGX",
+            "USD",
+            "USN",
+            "UYI",
+            "UYU",
+            "UYW",
+            "UZS",
+            "VES",
+            "VND",
+            "VUV",
+            "WST",
+            "XAF",
+            "XCD",
+            "XDR",
+            "XOF",
+            "XPF",
+            "XSU",
+            "XUA",
+            "YER",
+            "ZAR",
+            "ZMW",
+            "ZWL"});
             this.currencyToBox.Location = new System.Drawing.Point(465, 121);
             this.currencyToBox.Name = "currencyToBox";
             this.currencyToBox.Size = new System.Drawing.Size(133, 21);
+            this.currencyToBox.Sorted = true;
             this.currencyToBox.TabIndex = 7;
             this.currencyToBox.SelectedIndexChanged += new System.EventHandler(this.currencyBoxTo_SelectedIndexChanged);
             // 
@@ -120,13 +465,18 @@ namespace CurrencyConverter
             // 
             // overlay
             // 
-            this.overlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.overlay.BackColor = System.Drawing.Color.LightSalmon;
+            this.overlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.overlay.ForeColor = System.Drawing.SystemColors.ControlText;
             this.overlay.Location = new System.Drawing.Point(123, 29);
             this.overlay.Name = "overlay";
+            this.overlay.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.overlay.Size = new System.Drawing.Size(498, 291);
             this.overlay.TabIndex = 1;
-            this.overlay.Text = "Currency Converter\r\n\r\nClick To Open\r\n";
-            this.overlay.UseVisualStyleBackColor = true;
+            this.overlay.Text = "Currency Converter\r\n\r\nFollow These Steps:\r\n1) Enter the Sum to Convert.\r\n2) Enter" +
+    " the Currency to Convert from.\r\n3) Enter the Currency to Convert to.\r\n4) Click t" +
+    "he Convert Button\r\n\r\nClick To Begin";
+            this.overlay.UseVisualStyleBackColor = false;
             this.overlay.Click += new System.EventHandler(this.overlay_Click);
             // 
             // imageList1
@@ -137,7 +487,7 @@ namespace CurrencyConverter
             // 
             // label1
             // 
-            this.label1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label1.BackColor = System.Drawing.Color.LightSalmon;
             this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label1.Location = new System.Drawing.Point(129, 29);
             this.label1.Name = "label1";
@@ -159,7 +509,7 @@ namespace CurrencyConverter
             // convertFromLabel
             // 
             this.convertFromLabel.AutoSize = true;
-            this.convertFromLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.convertFromLabel.BackColor = System.Drawing.Color.LightSalmon;
             this.convertFromLabel.Location = new System.Drawing.Point(311, 93);
             this.convertFromLabel.Name = "convertFromLabel";
             this.convertFromLabel.Size = new System.Drawing.Size(101, 13);
@@ -170,7 +520,7 @@ namespace CurrencyConverter
             // convertAmountLabel
             // 
             this.convertAmountLabel.AutoSize = true;
-            this.convertAmountLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.convertAmountLabel.BackColor = System.Drawing.Color.LightSalmon;
             this.convertAmountLabel.Location = new System.Drawing.Point(145, 93);
             this.convertAmountLabel.Name = "convertAmountLabel";
             this.convertAmountLabel.Size = new System.Drawing.Size(109, 13);
@@ -180,7 +530,7 @@ namespace CurrencyConverter
             // convertToLabel
             // 
             this.convertToLabel.AutoSize = true;
-            this.convertToLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.convertToLabel.BackColor = System.Drawing.Color.LightSalmon;
             this.convertToLabel.Location = new System.Drawing.Point(462, 93);
             this.convertToLabel.Name = "convertToLabel";
             this.convertToLabel.Size = new System.Drawing.Size(91, 13);
@@ -190,7 +540,7 @@ namespace CurrencyConverter
             // title
             // 
             this.title.AutoSize = true;
-            this.title.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.title.BackColor = System.Drawing.Color.LightSalmon;
             this.title.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.title.ForeColor = System.Drawing.Color.Black;
             this.title.Location = new System.Drawing.Point(148, 43);
@@ -202,7 +552,7 @@ namespace CurrencyConverter
             // resultLabel
             // 
             this.resultLabel.AutoSize = true;
-            this.resultLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.resultLabel.BackColor = System.Drawing.Color.LightSalmon;
             this.resultLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.resultLabel.ForeColor = System.Drawing.Color.Black;
             this.resultLabel.Location = new System.Drawing.Point(149, 179);
@@ -258,6 +608,7 @@ namespace CurrencyConverter
         private System.Windows.Forms.Label convertToLabel;
         private System.Windows.Forms.Label title;
         private System.Windows.Forms.Label resultLabel;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 
